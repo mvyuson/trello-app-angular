@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 from django.shortcuts import redirect
 from django.shortcuts import render 
 from django.urls import reverse
@@ -50,3 +50,8 @@ class LoginView(TemplateView):
                 print("Check username and password")
                 return render(self.request, self.template_name, context)
         return render(self.request, self.template_name, context)
+
+class LogoutView(RedirectView):
+    def get(self, *args, **kwargs):
+        logout(request)
+        
