@@ -28,6 +28,7 @@ class SignupView(TemplateView):
         return render(self.request, self.template_name, context)
 
 class LoginView(TemplateView):
+    ''' Add 'Forgot Password' feature '''
     form = LoginForm
     template_name = 'trello/login.html'
     
