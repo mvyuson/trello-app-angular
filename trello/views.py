@@ -1,6 +1,9 @@
-from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 from django.views.generic import TemplateView
+from django.shortcuts import redirect
 from django.shortcuts import render 
+from django.urls import reverse
 
 from .forms import SignupForm
 from .forms import LoginForm
@@ -16,9 +19,13 @@ class SignupView(TemplateView):
 
     def post(self, *args, **kwargs):
         form = self.form(self.request.POST)
+        #import pdb; pdb.set_trace()
         if form.is_valid():
             myuser = form.save()
+            myuser.save()
             return redirect('login')
+        context = {'form':form}
+        return render(self.request, self.template_name, context)
 
 class LoginView(TemplateView):
     form = LoginForm
@@ -31,9 +38,15 @@ class LoginView(TemplateView):
 
     def post(self, *args, **kwargs):
         form = self.form(self.request.POST)
+        username = self.request.POST.get('username')
+        password = self.request.POST.get('password')
         context = {'form':form}
         if form.is_valid():
-            user = authenticate(self.request, username=form.username, password=form.password)
+            user = authenticate(self.request, username=username, password=password)
             if user is not None:
                 login(self.request, user)
-                redirect('dashboard')
+                return render(self.request, "trello/dashboard.html", context)
+            else:
+                print("Check username and password")
+                return render(self.request, self.template_name, context)
+        return render(self.request, self.template_name, context)

@@ -5,6 +5,6 @@ from trello.views import LoginView
 from . import views
 
 urlpatterns = [
-    path('', SignupView.as_view(), name='login'),
-    path('login/', LoginView.as_view(), name='dashboard')
+    path('', SignupView.as_view(), name='signup'),
+    path('login/', LoginView.as_view(), name='login'),
 ]

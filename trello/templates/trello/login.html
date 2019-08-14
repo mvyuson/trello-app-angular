@@ -1,9 +1,9 @@
 <html>
     <head>
-
     </head>
     <body>
-        <form method="POST" action="/login/">{% csrf_token %}
+        <form method="POST">
+            {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" type="submit">Login</button>
         </form>

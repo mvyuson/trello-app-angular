@@ -1,0 +1,21 @@
+{% load static %}
+<html>
+    <head>
+        <title>Trello Clone App</title>
+        <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'node_modules/glyphicons/glyphicons.js' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <script src="{% static 'js/main.js' %}"></script>
+    </head>
+    <body>
+        <div class="page-header bg-warning">
+            <h3>{{ user.username }}</h3>
+            <button class="btn"><span id='add-board'>+</span></button>
+        </div>
+        <div class="content-container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
+

@@ -1,0 +1,116 @@
+
+from django.contrib import admin
+
+# Register your models here.
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(widget=password)
+
+
+class Signup(forms.Form):
+    email
+    password
+    username
+
+    def clean_email(self):
+        email = self.cleaned_data['eamil']
+        user = User.objects.filter(email=email)
+        if user.exists():
+            raise forms.ValidationError('Email already taken')
+        return email
+    
+    def clean_password(self)
+        pass1
+        pass2
+        if pass1 != pass2:
+            raise forms.ValidationError('password mismatch')
+        return pass1
+
+
+    def save(self, cleaned_data):
+        email = self.cleaned_data['email']
+        fname = self.cleaned_data['firanme']
+        user = User.objects.create_user(fname, email, password)
+        return user
+
+class LoginView(TemplateView):
+    template_name = 'login.html'
+    form = LoginForm
+
+    def get(self, *args, **kwargs):
+        context = {'form': self.form()}
+        
+        return render(self.request, self.template_name, context)
+    
+    def post(self, *args, **kwargs):
+        form = self.form(self.request.POST)
+        context = {'form': form}
+        if form.is_valid():
+            user = authenticate(self.request, username=form, passwrd) 
+            if user is not None:
+                login(self.request, user)
+                redirect('dashbaord')     
+         return render(self.request, self.template_name, context)       
+
+
+
+
+
+class SignupView():
+    form = SignupForm
+
+    def get()
+
+    def post(self, *args, **kwargs)
+        form = self.form(self.request.POST)
+        if form.is_valid():
+            myuser = form.save()
+        else:
+            
+form class
+
+from django import forms
+#from .models import User
+
+class SignupForm(forms.Form):
+    firstname = forms.CharField(label='First Name', max_length=30)
+   
+
+    '''def clean_username(self):
+        username = self.cleaned_data['username']
+        user = User.objects.filter(username=username)
+        if user.exists():
+            raise form.ValidationError('Username already taken')
+        else:
+            return username
+    
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        user = User.objects.filter(email=email)
+        if user.exists():
+            raise form.ValidationError('Email already taken')
+        else:
+            return email
+
+    def clean_password(self):
+        first_password = self.cleaned_data['first_password']
+        second_password = self.cleaned_data['second_password']
+        if first_password != second_password:
+            raise form.ValidationError('Password mismatched')
+        else:
+            return first_password'''
+    
+    
+
+    <html>
+    <head>
+    </head>
+    <body>
+        <form method="POST" action="/signup/">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" type="submit">Sign Up</button>
+         </form>
+    </body>
+</html>
