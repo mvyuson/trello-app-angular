@@ -2,20 +2,53 @@
 <html>
     <head>
         <title>Trello Clone App</title>
+        <!--<script src="{% static 'js/main.js' %}"></script>-->
+        <script src="{% static 'node_modules/jquery/dist/jquery.js' %}"></script>
+        <script src="{% static 'node_modules/bootstrap/dist/js/bootstrap.js' %}"></script>
         <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.css' %}">
-        <link rel="stylesheet" href="{% static 'css/trello_style.css' %}">
-        <script src="{% static 'js/main.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'css/style_trello.css' %}">
     </head>
     <body>
+        <div class="modal" id="cardModal">
+            <div class="modal-dialog-centered mt-0">
+                <div class="modal-content w-25 m-auto">
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="button" id="desbtn" class="btn bg-warning m-auto text-white">Create Board</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="page-header bg-warning">
             <h3>{{ user.username }}</h3>
-            <a href="{% url 'login' %}">Logout</a>
-            <button class="btn"><span id='add-board'></span>+</span></button>
+            <a href="{% url 'logout' %}">Logout</a>
+            <button class="btn" id="create-board"><span id='add-board'>Create Board</span></button>
         </div>
         <div class="content-container">
             {% block content %}
             {% endblock %}
         </div>
     </body>
+    <script>
+        'use strict'
+
+        function add_board(){
+            $('.btn').click(function(){
+                $('#cardModal').modal('show');
+            });
+
+            $('#desbtn').click(function(){
+                alert("Create Board!")
+            });
+        }
+
+        $(document).ready(function (){
+            add_board()
+        });
+    </script>
 </html>
 

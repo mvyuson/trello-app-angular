@@ -1,14 +1,13 @@
 #add-board{
     color: #ffffff;
-    font-size: 50px;
+    font-size: 20px;
     margin: auto;
 }
 
-.btn{
-    margin-left: 90%;
-    margin-top: -68px;
-    font-size: 50px;
-    height: 50px;
+#create-board{
+    margin-left: 40%;
+    margin-top: -48px;
+    height: 30px;
 }
 
 .page-header{
@@ -27,5 +26,9 @@ h3{
     margin-left: 20px;
     width: 200px;
     color: #ffffff;
+}
+
+.modal{
+    width: 50%;
 }
 

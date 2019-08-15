@@ -1,4 +1,5 @@
 from django import forms
+from .models import Board
 from django.contrib.auth.models import User
 
 class SignupForm(forms.Form):
@@ -31,6 +32,18 @@ class SignupForm(forms.Form):
         user.save()
         return user
 
+
 class LoginForm(forms.Form):
     username = forms.CharField()
-    password = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput)
+
+
+class AddBoardTitleForm(forms.ModelForm):
+    title = forms.CharField()
+
+    class Meta:
+        model = Board
+        fields = ('title',)
+
+    
+

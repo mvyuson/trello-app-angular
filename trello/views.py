@@ -1,12 +1,17 @@
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from django.views.generic import TemplateView, RedirectView
-from django.shortcuts import redirect
-from django.shortcuts import render 
+from django.template.loader import render_to_string
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
-from .forms import SignupForm
-from .forms import LoginForm
+from .forms import SignupForm, LoginForm, AddBoardTitleForm
+from .models import Board
+
 
 class SignupView(TemplateView):
     form = SignupForm
@@ -27,8 +32,27 @@ class SignupView(TemplateView):
         context = {'form':form}
         return render(self.request, self.template_name, context)
 
+
+class AddBoardView(TemplateView):
+    template_name = 'trello/dashboard.html'
+
+    def get(self, *args, **kwargs):
+        form = AddBoardTitleForm()
+        context = {'form':form}
+        return render(self.request, self.template_name, context)
+
+    def post(self, *args, **kwargs):
+        form = self.form(self.request.POST)
+        title = self.request.POST.get('title')
+        context = {'form':form}
+        if form.is_valid():
+            title = form.save()
+            title.save()
+            return redirect('board')
+        return render(self.request, self.template_name, context)
+
+
 class LoginView(TemplateView):
-    ''' Add 'Forgot Password' feature '''
     form = LoginForm
     template_name = 'trello/login.html'
     
@@ -46,13 +70,72 @@ class LoginView(TemplateView):
             user = authenticate(self.request, username=username, password=password)
             if user is not None:
                 login(self.request, user)
-                return render(self.request, "trello/dashboard.html", context)
+                return redirect('dashboard') 
             else:
                 print("Check username and password")
                 return render(self.request, self.template_name, context)
         return render(self.request, self.template_name, context)
 
-class LogoutView(RedirectView):
+
+class DashBoardView(LoginRequiredMixin, TemplateView):
+    """
+    Redirect to Login page when user logout.
+    """
+    login_url = '/login/'
+    template_name = 'trello/dashboard.html'
+    form = AddBoardTitleForm
+
     def get(self, *args, **kwargs):
-        logout(request)
+        form = AddBoardTitleForm()
+        context = {'form':form}
+        return render(self.request, self.template_name, context)
+
+    def post(self, *args, **kwargs):
+        form = self.form(self.request.POST)
+        title = self.request.POST.get('title')
+        context = {'form':form}
+        if form.is_valid():
+            title = form.save()
+            title.save()
+            board_title = title.title
+            return render('board', {'board_title':board_title})
+        return render(self.request, self.template_name, context)
+
+
+class BoardView(RedirectView):
+    template_name = 'trello/board.html'
+
+    """
+    Display the current board title
+    """
+
+    def get(self, *args, **kwargs):
+        title = Board.objects.all()
+        context = {'title':title}
+        return render(self.request, self.template_name, context)
+
+
+class LogoutView(RedirectView):
+    """
+    Logout User
+    """
+
+    def get(self, *args, **kwargs):
+        logout(self.request)
+        return redirect('login')
+
+class PasswordResetView(TemplateView):
+    def get(self, *args, **kwargs):
+        email = self.request.POST.get('email')
+        send_mail(
+            'Reset Password',
+            'Reset Password',
+            'webmaster@localhost',
+            email,
+            html_content = render_to_string('registration/password_reset_email.html')
+        )
+
+
+    
+    
         
