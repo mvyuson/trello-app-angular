@@ -1,6 +1,13 @@
 from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
-from trello.views import SignupView, LoginView, DashBoardView, LogoutView, BoardView
+from trello.views import (
+        SignupView, 
+        LoginView,
+        DashBoardView,
+        LogoutView,
+        BoardView,
+        CreateBoardView
+)
 from django.urls import path
 
 urlpatterns = [
@@ -14,5 +21,9 @@ urlpatterns = [
 
 
     path('dashboard/', DashBoardView.as_view(), name='dashboard'),
-    path('board/', BoardView.as_view(), name='board'),
+    path('board/<slug:title>/', BoardView.as_view(), name='board'),
+    path('create-board/', CreateBoardView.as_view(), name='board-create'),
+
+
+
 ]

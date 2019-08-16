@@ -40,9 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

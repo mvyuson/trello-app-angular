@@ -1,5 +1,5 @@
 from django import forms
-from .models import Board
+from .models import Board, List
 from django.contrib.auth.models import User
 
 class SignupForm(forms.Form):
@@ -45,5 +45,12 @@ class AddBoardTitleForm(forms.ModelForm):
         model = Board
         fields = ('title',)
 
+
+class AddListForm(forms.ModelForm):
+    list_title = forms.CharField()
+
+    class Meta:
+        model = List 
+        fields = ('list_title',)
     
 

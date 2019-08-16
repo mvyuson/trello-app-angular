@@ -1,16 +1,19 @@
+from django.views.generic import TemplateView, RedirectView
+from django.template.loader import render_to_string
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
-from django.views.generic import TemplateView, RedirectView
-from django.template.loader import render_to_string
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
 from django.urls import reverse
 
-from .forms import SignupForm, LoginForm, AddBoardTitleForm
+from .forms import SignupForm, LoginForm, AddBoardTitleForm, AddListForm
 from .models import Board
+
+import json
 
 
 class SignupView(TemplateView):
@@ -96,24 +99,62 @@ class DashBoardView(LoginRequiredMixin, TemplateView):
         context = {'form':form}
         if form.is_valid():
             title = form.save()
-            title.save()
-            board_title = title.title
-            return render('board', {'board_title':board_title})
+            return redirect('board', title=title)
         return render(self.request, self.template_name, context)
 
-
-class BoardView(RedirectView):
-    template_name = 'trello/board.html'
-
+class CreateBoardView(TemplateView):
     """
-    Display the current board title
+    Redirect to board with the saved board title.
     """
+
+    template_name = 'trello/create-board.html' 
+    form = AddBoardTitleForm
 
     def get(self, *args, **kwargs):
-        title = Board.objects.all()
-        context = {'title':title}
+        form = self.form()
+        return render(self.request, self.template_name,  {'form':form})
+
+    def post(self, *args, **kwargs):
+        form = self.form(self.request.POST)
+        if form.is_valid():
+            title=form.save()
+            return HttpResponse('')
+        return render(self.request, self.template_name,  {'form':form})
+ 
+
+class BoardView(RedirectView):
+    """
+    Display the current board title by calling its id
+    """
+
+    template_name = 'trello/board.html'
+
+    def get(self, *args, **kwargs):
+        current_board = get_object_or_404(Board, title=kwargs.get("title"))
+        title = current_board.title
+        return render(self.request, self.template_name, {'title':title})
+
+
+class ListView(TemplateView):
+    template_name = 'trello/list.html'
+    form = AddListForm
+
+    def get(self, *args, **kwargs):
+        form = AddListForm()
+        context = {'form':form}
         return render(self.request, self.template_name, context)
 
+    def post(self, *args, **kwargs):
+        form.self.form(self.request.POST)
+        list_title = self.request.POST.get('list_title')
+        context = {'form':form}
+        if form.is_valid():
+            list_title = form.save()
+            list_title.save()
+            return redirect('board')
+        return render(self.request, self.template_name, context)
+
+    
 
 class LogoutView(RedirectView):
     """
