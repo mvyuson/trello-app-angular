@@ -1,0 +1,8 @@
+<h1>Trello Login</h1>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <input type="text" formControlName="username" placeholder="Username"><br>
+  <input type="password" formControlName="password" placeholder="Password"><br>
+  <button type="submit" [disabled]="!loginForm.valid">Login</button><br>
+</form>
+<a [routerLink]="'/signup'">Signup</a>
+
