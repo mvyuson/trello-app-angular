@@ -1,3 +1,4 @@
-<p>
-  add-list works!
-</p>
+<h2>Add List</h2>
+<form [formGroup]="addListForm" (ngSubmit)="onSubmit()">
+  <input type="text" formControlName="list_title" placeholder="Add List">
+</form>

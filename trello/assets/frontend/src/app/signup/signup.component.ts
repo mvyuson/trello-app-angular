@@ -12,15 +12,17 @@ export class SignupComponent implements OnInit {
   signupForm = new FormGroup({
     username: new FormControl(''),
     email: new FormControl(''),
-    password1: new FormControl(''),
-    password2: new FormControl(''),
+    password: new FormControl(''),
   });
 
   onSubmit(){
     console.warn(this.signupForm.value);
+
+    // this.SignupService.getSignup()
+    //   .subscribe((data: ))
   }
 
-  constructor() { }
+  constructor(private SignupService: SignupService) { }
 
   ngOnInit() {
   }

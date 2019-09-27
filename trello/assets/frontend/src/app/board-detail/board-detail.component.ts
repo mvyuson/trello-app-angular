@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-board-detail',
@@ -6,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./board-detail.component.css']
 })
 export class BoardDetailComponent implements OnInit {
+
+  addListForm = new FormGroup({
+    list_title: new FormControl(''),
+  })
 
   constructor() { }
 
