@@ -1,0 +1,14 @@
+<h1>Trello Signup</h1>
+<form class="form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+  <input type="text" formControlName="username" placeholder="Username"><br>
+    <input type="email" formControlName="email" placeholder="Email"><br>
+    <input type="password" formControlName="password" placeholder="Password"><br>
+  <button type="submit" [disabled]="!signupForm.valid">Signup</button>
+</form>
+<p>Already have an account? <a [routerLink]="'/login'">Login</a></p>
+
+<ul>
+  <li *ngFor="let user of User">
+    {{user.username}}sdds
+  </li>
+</ul>

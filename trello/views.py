@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from rest_framework.authentication import TokenAuthentication
 from rest_framework import permissions
 from .serializers import UserSerializer, BoardSerializer, ListSerializer, CardSerializer
 from .models import Board, List, Card
@@ -10,7 +11,7 @@ from .models import Board, List, Card
 
 class UserSignupViewset(viewsets.ViewSet):
     serializer_class = UserSerializer
-    
+
     def create(self, *args, **kwargs):
         serializer = self.serializer_class(data=self.request.data)
         if serializer.is_valid():
@@ -21,7 +22,7 @@ class UserSignupViewset(viewsets.ViewSet):
 
 class BoardViewset(viewsets.ViewSet):
     serializer_class = BoardSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, pk):
         try: 
@@ -31,7 +32,7 @@ class BoardViewset(viewsets.ViewSet):
 
 
     def list(self, *args, **kwargs):
-        boards = Board.objects.filter(author=self.request.user)
+        boards = Board.objects.all()
         serializer = self.serializer_class(boards, many=True)
         return Response(serializer.data)
     

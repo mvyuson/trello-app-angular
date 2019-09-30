@@ -1,0 +1,16 @@
+<h1>Trello Dashboard</h1>
+<input #boardTitle /><br>
+<button (click)="addBoard(boardTitle.value); boardTitle.value=''">Create Board</button>
+<br><br>
+
+<h2>Board List</h2>
+<ul>
+  <li *ngFor="let board of boards">
+    {{board.title}}
+  </li>
+</ul>
+
+<!-- <form [formGroup]="createBoardForm" (ngSubmit)="onSubmit()">
+  <input type="text" formControlName="title" placeholder="Create Board"><br>
+  <button type="submit" [disabled]="!createBoardForm.valid">Create Board</button>
+</form><br><br> -->
