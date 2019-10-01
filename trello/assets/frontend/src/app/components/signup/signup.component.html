@@ -5,7 +5,8 @@
     <input type="password" formControlName="password" placeholder="Password"><br>
   <button type="submit" [disabled]="!signupForm.valid">Signup</button>
 </form>
-<p>Already have an account? <a [routerLink]="'/login'">Login</a></p>
+<!-- <input [(ngModel)]="user.username"/> -->
+<p>Already have an account? <a [routerLink]="'/api-auth/login'">Login</a></p>
 
 <ul>
   <li *ngFor="let user of User">

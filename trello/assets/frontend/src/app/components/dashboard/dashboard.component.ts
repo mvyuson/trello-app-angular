@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { DashboardService } from '../../common/services/dashboard.service';
+
+import { Board } from '../../common/models/board.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +11,7 @@ import { DashboardService } from '../../common/services/dashboard.service';
   providers: [DashboardService]
 })
 export class DashboardComponent implements OnInit {
-  private boards = [];
+  boards: Board[];
 
   createBoardForm = new FormGroup({
     title: new FormControl(''),
@@ -22,6 +24,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   }
 
+  @Input() board: Board;
+
   getBoard = () => {
     this.dashboardservice.getAllBoards().subscribe((res)=>{
       console.log(res);
@@ -30,17 +34,20 @@ export class DashboardComponent implements OnInit {
   }
 
   onSubmit(): void{
-    
+    console.warn(this.createBoardForm.value);
+    var title = this.createBoardForm.value.title;
+    this.dashboardservice.createBoard(title).subscribe(title => this.boards.push(title));
+    this.createBoardForm.reset();
   }
 
-  addBoard(title: string): void {
-    title = title.trim();
-    console.log(title)
-    if(!title) {return; }
-    this.dashboardservice.createBoard({ title }).subscribe(title => {
-      this.boards.push(title);
-    });
-  }
+  // addBoard(title: string): void {
+  //   title = title.trim();
+  //   console.log(title)
+  //   if(!title) {return; }
+  //   this.dashboardservice.createBoard({ title }).subscribe(title => {
+  //     this.boards.push(title);
+  //   });
+  // }
 
 }
 

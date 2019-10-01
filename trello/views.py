@@ -22,7 +22,7 @@ class UserSignupViewset(viewsets.ViewSet):
 
 class BoardViewset(viewsets.ViewSet):
     serializer_class = BoardSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, pk):
         try: 

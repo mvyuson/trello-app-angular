@@ -1,18 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatTableModule} from '@angular/material';
-import { SignupComponent } from './signup/signup.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { BoardDetailComponent } from './board-detail/board-detail.component';
-import { AddListComponent } from './add-list/add-list.component';
-import { AddCardComponent } from './add-card/add-card.component';
-import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { BoardDetailComponent } from './components/board-detail/board-detail.component';
+import { AddListComponent } from './components/add-list/add-list.component';
+import { AddCardComponent } from './components/add-card/add-card.component';
+import { LoginComponent } from './components/login/login.component';
+import { InterceptorService } from './common/interceptors/interceptor.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,9 @@ import { LoginComponent } from './login/login.component';
     MatButtonModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

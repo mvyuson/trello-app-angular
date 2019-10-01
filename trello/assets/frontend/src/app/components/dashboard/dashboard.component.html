@@ -1,6 +1,8 @@
 <h1>Trello Dashboard</h1>
-<input #boardTitle /><br>
-<button (click)="addBoard(boardTitle.value); boardTitle.value=''">Create Board</button>
+<form class="form" [formGroup]="createBoardForm" (ngSubmit)="onSubmit()">
+  <input type="text" formControlName="title" placeholder="Enter Board Title">
+  <button type="submit" [disabled]="!createBoardForm.valid">Create Board</button>
+</form>
 <br><br>
 
 <h2>Board List</h2>

@@ -4,12 +4,12 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { SignupService } from '../../common/services/signup.service';
 import { User } from '../../common/models/user.model';
 import { Observable } from 'rxjs';
-// import { userInfo } from 'os';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.css'],
+  providers: [SignupService]
 })
 export class SignupComponent implements OnInit {
   constructor(private signupservice: SignupService) { }
@@ -17,7 +17,7 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
 
-  @Input() user: User;
+  user: User[];
 
   signupForm = new FormGroup({
     username: new FormControl(''),
@@ -25,15 +25,16 @@ export class SignupComponent implements OnInit {
     password: new FormControl(''),
   });
 
-  onSubmit(){
+  onSubmit(): void{
     console.warn(this.signupForm.value.username);
-    this.user = this.signupForm.value;    
-    console.log(this.user);
-    var username = this.user.username;
-    var email = this.user.email;
-    var password = this.user.password;
+    var temp_user = this.signupForm.value;    
 
-    this.signupservice.getSignup(username, email, password);
+    console.log(temp_user);
+
+    this.signupservice
+      .getSignup(temp_user)
+      .subscribe(temp_user => this.user.push(temp_user));
+
     this.signupForm.reset();
     }
     // this.SignupService.getSignup()

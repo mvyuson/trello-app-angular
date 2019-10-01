@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SignupComponent } from './signup/signup.component';
-import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { BoardDetailComponent } from './board-detail/board-detail.component';
-import { AddListComponent } from './add-list/add-list.component';
-import { AddCardComponent } from './add-card/add-card.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { LoginComponent } from './components/login/login.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { BoardDetailComponent } from './components/board-detail/board-detail.component';
+import { AddListComponent } from './components/add-list/add-list.component';
+import { AddCardComponent } from './components/add-card/add-card.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'signup', pathMatch: 'full' },
@@ -14,7 +14,7 @@ const routes: Routes = [
     component: SignupComponent
   },
   {
-    path: 'login',
+    path: 'api-auth/login',
     component: LoginComponent
   },
   {
