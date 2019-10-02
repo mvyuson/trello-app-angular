@@ -13,11 +13,6 @@ export class SignupService {
   constructor(private httpClient: HttpClient) { }
 
   getSignup(user: User): Observable<any>{
-    // var data = {
-    //   "username": username,
-    //   "email": email,
-    //   "password": password
-    // }
     console.log('service', user);
     return this.httpClient.post(this.baseurl + '/signup', user, {headers: this.httpHeaders})
   }

@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { DashboardService } from '../../common/services/dashboard.service';
 
 import { Board } from '../../common/models/board.model';
+import { AuthService } from '../../common/auth/auth.service';
 
 @Component({
   selector: 'app-dashboard',

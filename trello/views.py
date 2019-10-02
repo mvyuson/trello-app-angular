@@ -13,6 +13,7 @@ class UserSignupViewset(viewsets.ViewSet):
     serializer_class = UserSerializer
 
     def create(self, *args, **kwargs):
+        # import pdb; pdb.set_trace()
         serializer = self.serializer_class(data=self.request.data)
         if serializer.is_valid():
             serializer.save()
@@ -32,7 +33,7 @@ class BoardViewset(viewsets.ViewSet):
 
 
     def list(self, *args, **kwargs):
-        boards = Board.objects.all()
+        boards = Board.objects.filter(author=self.request.user)
         serializer = self.serializer_class(boards, many=True)
         return Response(serializer.data)
     
@@ -40,6 +41,7 @@ class BoardViewset(viewsets.ViewSet):
         serializer = self.serializer_class(data=self.request.data)
         if serializer.is_valid():
             serializer.save(author=self.request.user)
+            print(self.request.user)
             return Response(serializer.data, status=200)
         return Response(serializer.data)
 
@@ -68,7 +70,7 @@ class ListViewset(viewsets.ViewSet):
         return Response(serializer.data)
 
     def create(self, *args, **kwargs):
-        #import pdb; pdb.set_trace()
+        # import pdb; pdb.set_trace()
         serializer = self.serializer_class(data=self.request.data, context={'request': self.request})
         board = get_object_or_404(Board, pk=kwargs.get('pk'))
         if serializer.is_valid():

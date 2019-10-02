@@ -12,5 +12,5 @@ urlpatterns = [
     path('board/<int:pk>/list', ListViewset.as_view({'get': 'list_detail', 'post': 'create'}), name='add-list'),
     path('board/list/<int:pk>/card', CardViewset.as_view({'get': 'card_detail', 'post': 'create'}), name='add-card'),
     # path('', TemplateView.as_view(template_name="home.html"), name="home"),
-    path('api-auth/login', ObtainAuthToken.as_view()),
+    path('login', ObtainAuthToken.as_view()),
 ]

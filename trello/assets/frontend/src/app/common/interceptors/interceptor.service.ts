@@ -9,7 +9,7 @@ import { tap } from 'rxjs/operators';
 import 'rxjs/add/observable/throw'
 import 'rxjs/add/operator/catch';
 
-import { AuthService } from '../services/auth.service'
+import { AuthService } from '../auth/auth.service'
 
 @Injectable({
   providedIn: 'root'

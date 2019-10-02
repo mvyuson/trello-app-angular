@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
-import { AuthService } from '../../common/services/auth.service';
+import { AuthService } from '../../common/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,10 +11,17 @@ import { AuthService } from '../../common/services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
+  constructor(private authService: AuthService, private router: Router) { }
+
+  ngOnInit() {
+  }
+
   loginForm = new FormGroup({
     username: new FormControl(''),
     password: new FormControl(''),
   });
+
+  redirectUrl = 'http://localhost:8000/dashboard/';
 
   onSubmit(){
     console.warn(this.loginForm.value);
@@ -22,24 +30,30 @@ export class LoginComponent implements OnInit {
       (data) => {
         if(data["token"] != null){
           console.log(data["token"])
-          console.log('SSSSSASASAS');
           localStorage.setItem("access-token", data["token"])
+          this.router.navigate(['dashboard']);
+          console.log('Logged in');
         }else{
           console.log("Please check your credentials")
         }
       }
     )
-
+   
+    
     this.loginForm.reset();
   }
-
-  constructor(private authService: AuthService) { }
-
-  login(){
-    
-  }
-
-  ngOnInit() {
-  }
-
 }
+
+// this.authService.Authentication(this.loginForm.value.username, this.loginForm.value.password).subscribe(
+//   (data) => {
+//     console.log(data);
+//     if(data["token"] != null){
+//       console.log(data["token"])
+//       console.log(this.loginForm.value.username, ' Logged in');
+//       localStorage.setItem("access-token", data["token"])
+//       this.router.navigate(['dashboard']);
+//     }else{
+//       console.log("Please check your credentials")
+//     }
+//   }
+// )

@@ -10,6 +10,6 @@ export class LoginService {
 
   Authentication(username:string, password:string){
     let json = {username:username, password:password}
-    return this.Http.post("http://localhost:8000/api-auth/login", json);
+    return this.Http.post("http://localhost:8000/login", json);
   }
 }
