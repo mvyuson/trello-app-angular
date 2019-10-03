@@ -1,3 +1,23 @@
-<h1>Board Detail</h1>
-<app-add-list></app-add-list>
-<app-add-card></app-add-card>
+<body>
+    <nav class="navbar">
+        <div class="create-board nav-item">
+        <form class="form" [formGroup]="createBoardForm" (ngSubmit)="onSubmit()">
+            <input type="text" formControlName="title" placeholder="Enter Board Title">
+            <button class="btn" type="submit" [disabled]="!createBoardForm.valid">Create Board</button>
+        </form>
+        </div>
+        <span class="navbar-item"><em>Trello</em></span> 
+        <ul class="navbar-nav list-unstyled">
+            <li class="nav-item boards">
+                <a class="navbar-item" routerLink="/dashboard">Boards</a>
+            </li>
+            <li class="nav-item logout">
+                <a class="navbar-item text-white" [routerLink]="'/login'">Logout</a> 
+            </li>
+        </ul> 
+    </nav>
+    <div class="container-fluid">
+        <h2>{{board.title}}</h2>
+        <app-add-list></app-add-list>
+    </div>
+</body>

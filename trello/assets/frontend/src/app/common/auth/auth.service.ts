@@ -10,11 +10,17 @@ export class AuthService {
 
   Authentication(username:string, password:string){
     let json = {username:username, password:password}
+    this.current_user(username);
+    console.log(username);
     return this.Http.post("http://localhost:8000/login", json);
   }
 
   logout(){
     localStorage.removeItem('access-token');
+  }
+
+  current_user(username){
+    username = username;
   }
 
 }

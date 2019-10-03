@@ -1,4 +1,26 @@
-<h2>Add List</h2>
 <form [formGroup]="addListForm" (ngSubmit)="onSubmit()">
-  <input type="text" formControlName="list_title" placeholder="Add List">
+  <input id="addList" type="text" formControlName="list_title" placeholder="+ Add List">
 </form>
+
+
+<div class="container-fluid w-100">
+  <li class="list-unstyled" *ngFor="let l of list">
+    <div class="card">
+      <div class="card-title">
+          {{l.list_title}}
+      </div>
+      <div class="card-body">
+        <li class="list-unstyled card-content" *ngFor="let card of cards">
+          <span>
+            {{card}}
+          </span>
+        </li>
+        <form [formGroup]="addCardForm" (ngSubmit)="CardSubmit(l.id)">
+          <input id="addCard" type="text" formControlName="card_title" placeholder="+ Add Card">
+        </form>
+      
+      </div>
+    </div>
+  </li>
+</div>       
+

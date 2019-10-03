@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { DashboardService } from '../../common/services/dashboard.service';
 
 import { Board } from '../../common/models/board.model';
+import { User } from '../../common/models/user.model';
 import { AuthService } from '../../common/auth/auth.service';
 
 @Component({
@@ -12,15 +13,17 @@ import { AuthService } from '../../common/auth/auth.service';
   providers: [DashboardService]
 })
 export class DashboardComponent implements OnInit {
-  boards: Board[];
+  boards: Board[] = [];
 
   createBoardForm = new FormGroup({
     title: new FormControl(''),
   })
 
-  constructor(public dashboardservice: DashboardService) {
+  constructor(public dashboardservice: DashboardService, public authService: AuthService) {
     this.getBoard();
   }
+
+
 
   ngOnInit() {
   }
@@ -31,6 +34,7 @@ export class DashboardComponent implements OnInit {
     this.dashboardservice.getAllBoards().subscribe((res)=>{
       console.log(res);
       this.boards = res;
+      console.log(this.boards);
     })
   }
 

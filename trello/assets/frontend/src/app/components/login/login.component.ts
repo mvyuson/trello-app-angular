@@ -44,16 +44,3 @@ export class LoginComponent implements OnInit {
   }
 }
 
-// this.authService.Authentication(this.loginForm.value.username, this.loginForm.value.password).subscribe(
-//   (data) => {
-//     console.log(data);
-//     if(data["token"] != null){
-//       console.log(data["token"])
-//       console.log(this.loginForm.value.username, ' Logged in');
-//       localStorage.setItem("access-token", data["token"])
-//       this.router.navigate(['dashboard']);
-//     }else{
-//       console.log("Please check your credentials")
-//     }
-//   }
-// )

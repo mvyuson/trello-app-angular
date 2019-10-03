@@ -1,5 +1,5 @@
 export class Board {
-    id     : string = null;
+    id     : number = null;
     title  : string = null;
     author : string = null;
 }
