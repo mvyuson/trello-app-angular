@@ -9,8 +9,6 @@ import { Card } from '../../common/models/card.model';
 })
 export class ListService {
 
-  card: Card[] = []
-
   baseurl = "http://127.0.0.1:8000";
   HttpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
@@ -28,21 +26,4 @@ export class ListService {
       "board": board_id
     })
   }
-
-  createCard(card_title, board_id, list_id): Observable<any>{
-    console.log('Service', card_title, board_id, list_id)
-    return this.httpClient.post(this.baseurl+'/board/'+board_id+'/list',
-    {
-      "card_title": card_title,
-      "board_list": list_id
-    });
-  }
-
-  getListCards(board_id, list_id): Observable<any>{
-    console.log('List Service', board_id, list_id);
-    const url = `${this.baseurl}/board/${board_id}`;
-    console.log(url);
-    return this.httpClient.get<any>(url, {headers: this.HttpHeaders})
-  }
-
 }

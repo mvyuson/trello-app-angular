@@ -1,6 +1,7 @@
 .container-fluid{
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     display: flex;
+    padding-left: 0;
 }
 
 #addList{
@@ -10,12 +11,11 @@
     padding-left: 7px;
     border: 0;
     margin-top: 5px;
-    margin-left: 15px;
 }
 
 .card{
     font-size: 14px;
-    margin-top: 20px;
+    margin-top: 30px;
     margin-right: 10px; 
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: #DCDCDC;

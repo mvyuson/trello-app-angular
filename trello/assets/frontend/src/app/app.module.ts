@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,8 +13,10 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { BoardDetailComponent } from './components/board-detail/board-detail.component';
 import { AddListComponent } from './components/add-list/add-list.component';
 import { AddCardComponent } from './components/add-card/add-card.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { LoginComponent } from './components/login/login.component';
 import { Interceptor } from './common/interceptors/interceptor';
+import { NgbdModalComponentComponent } from './components/ngbd-modal-component/ngbd-modal-component.component';
 
 // import { AuthGuard } from './common/auth/auth.guard';
 
@@ -42,7 +45,9 @@ const routes: Routes = [
     BoardDetailComponent,
     AddListComponent,
     AddCardComponent,
-    LoginComponent
+    LoginComponent,
+    PageNotFoundComponent,
+    NgbdModalComponentComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +55,8 @@ const routes: Routes = [
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    NgbModule
   ],
   exports: [
     RouterModule

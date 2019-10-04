@@ -6,6 +6,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { BoardDetailComponent } from './components/board-detail/board-detail.component';
 import { AddListComponent } from './components/add-list/add-list.component';
 import { AddCardComponent } from './components/add-card/add-card.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { NgbdModalComponentComponent } from './components/ngbd-modal-component/ngbd-modal-component.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'signup', pathMatch: 'full' },
@@ -14,7 +16,9 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'board/:id', component: BoardDetailComponent },
   { path: 'board/:id/list', component: AddListComponent },
-  { path: 'board/:id/card', component: AddCardComponent }
+  { path: 'board/:id/list/:id2/card', component: AddCardComponent },
+  { path: 'card-description', component: NgbdModalComponentComponent},
+  { path: 'not-found', component: PageNotFoundComponent }
 ];
 
 @NgModule({

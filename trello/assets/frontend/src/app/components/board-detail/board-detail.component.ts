@@ -32,6 +32,13 @@ export class BoardDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.boardService.getBoard(+this.route.snapshot.paramMap.get('id')).subscribe(
+      board => {
+        this.board = board;
+      }, error => {
+        console.error(error);
+      }
+    )
   }
 
   getBoard = () => {

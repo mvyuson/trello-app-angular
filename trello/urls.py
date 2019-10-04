@@ -10,7 +10,7 @@ urlpatterns = [
     path('dashboard/', BoardViewset.as_view({'get': 'list', 'post': 'create'}), name='dashboard'),
     path('board/<int:pk>', BoardViewset.as_view({'get': 'retrieve', 'put': 'update'}), name='board-detail'),
     path('board/<int:pk>/list', ListViewset.as_view({'get': 'list_detail', 'post': 'create'}), name='add-list'),
-    path('board/<int:pk>/list', CardViewset.as_view({'get': 'card_detail', 'post': 'create'}), name='add-card'),
+    path('board/<int:pk>/list/<int:board_list>/card', CardViewset.as_view({'get': 'card_detail', 'post': 'create'}), name='add-card'),
     # path('', TemplateView.as_view(template_name="home.html"), name="home"),
     path('login', ObtainAuthToken.as_view()),
 ]

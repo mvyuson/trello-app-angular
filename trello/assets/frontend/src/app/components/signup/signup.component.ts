@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { SignupService } from '../../common/services/signup.service';
 import { User } from '../../common/models/user.model';
@@ -12,12 +13,16 @@ import { Observable } from 'rxjs';
   providers: [SignupService]
 })
 export class SignupComponent implements OnInit {
-  constructor(private signupservice: SignupService) { }
+
+  constructor(
+    private router: Router,
+    private signupservice: SignupService
+  ) { }
 
   ngOnInit() {
   }
 
-  user: User[];
+  user: User[] = [];
 
   signupForm = new FormGroup({
     username: new FormControl(''),
@@ -31,9 +36,9 @@ export class SignupComponent implements OnInit {
 
     console.log(temp_user);
 
-    this.signupservice
-      .getSignup(temp_user)
-      .subscribe(temp_user => this.user.push(temp_user));
+    this.signupservice.getSignup(temp_user).subscribe(
+      temp_user => this.user.push(temp_user));
+      this.router.navigate(['login'])
 
     this.signupForm.reset();
     }
